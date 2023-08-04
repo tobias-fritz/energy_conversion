@@ -70,7 +70,7 @@
             function convertEVtoNM() {
             const evInput = document.getElementById('ev').value;
             const nmOutput = document.getElementById('nm');
-            if (evInput !== '') {
+            if (evInput !== ''  && evValue >= 0) {
                 const ev = parseFloat(evInput);
                 const nm = 1239.84 / ev; // Conversion formula: 1 eV = 1239.84 nm
                 nmOutput.value = nm.toFixed(2);
@@ -82,7 +82,7 @@
             function convertNMtoEV() {
             const nmInput = document.getElementById('nm').value;
             const evOutput = document.getElementById('ev');
-            if (nmInput !== '') {
+            if (nmInput !== ''  && nmInput >= 0) {
                 const nm = parseFloat(nmInput);
                 const ev = 1239.84 / nm; // Conversion formula: 1 eV = 1239.84 nm
                 evOutput.value = ev.toFixed(4);
