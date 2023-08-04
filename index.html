@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Energy Conversion</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 8px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .input-row label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 150px;
+            padding: 8px;
+        }
+
+        /* Custom class to hide spinner arrows for number inputs */
+        .no-spinner::-webkit-inner-spin-button,
+        .no-spinner::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .no-spinner {
+            /* Firefox */
+            -moz-appearance: textfield;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Photon Energy Conversion</h1>
+    <div class="container">
+        <div class="input-row">
+            <label for="ev">Photon Energy (eV):</label>
+            <input type="number" id="ev" class="no-spinner" oninput="convertEVtoNM()" />
+        </div>
+        <div class="input-row">
+            <label for="nm">Wavelength (nm):</label>
+            <input type="number" id="nm" class="no-spinner" oninput="convertNMtoEV()" />
+        </div>
+    </div>
+
+
+
+        <script>
+            function convertEVtoNM() {
+            const evInput = document.getElementById('ev').value;
+            const nmOutput = document.getElementById('nm');
+            if (evInput !== '') {
+                const ev = parseFloat(evInput);
+                const nm = 1239.84 / ev; // Conversion formula: 1 eV = 1239.84 nm
+                nmOutput.value = nm.toFixed(2);
+            } else {
+                nmOutput.value = '';
+            }
+        }
+
+            function convertNMtoEV() {
+            const nmInput = document.getElementById('nm').value;
+            const evOutput = document.getElementById('ev');
+            if (nmInput !== '') {
+                const nm = parseFloat(nmInput);
+                const ev = 1239.84 / nm; // Conversion formula: 1 eV = 1239.84 nm
+                evOutput.value = ev.toFixed(4);
+            } else {
+                evOutput.value = '';
+            }
+        }
+        </script>
+    </div>
+</body>
+</html>
