@@ -76,19 +76,19 @@
         <h1 class="title full-row">Molecular Energy Conversion</h1>
         <div class="input-row">
             <label for="joules">Energy (Joules):</label>
-            <input type="number" id="joules" class="no-spinner" oninput="convertJtoKcal()" />
+            <input type="number" id="joules" class="no-spinner" oninput="convertJtoOthers()" />
         </div>
         <div class="input-row">
             <label for="kcal">Energy (kcal):</label>
-            <input type="number" id="kcal" class="no-spinner" oninput="convertKcaltoJ()" />
+            <input type="number" id="kcal" class="no-spinner" oninput="convertKcaltoOthers()" />
         </div>
         <div class="input-row">
             <label for="molecular-ev">Energy (eV):</label>
-            <input type="number" id="molecular-ev" class="no-spinner" oninput="convertJtoEV()" />
+            <input type="number" id="molecular-ev" class="no-spinner" oninput="convertEVtoOthers()" />
         </div>
         <div class="input-row">
             <label for="hartree">Energy (Hartree):</label>
-            <input type="number" id="hartree" class="no-spinner" oninput="convertJtoHartree()" />
+            <input type="number" id="hartree" class="no-spinner" oninput="convertHartreetoOthers()" />
         </div>
     </div>
 
@@ -117,51 +117,83 @@
             }
         }
 
-        function convertJtoKcal() {
+        function convertJtoOthers() {
             const joulesInput = document.getElementById('joules').value;
             const kcalOutput = document.getElementById('kcal');
-            if (joulesInput !== '') {
-                const joules = parseFloat(joulesInput);
-                const kcal = joules / 4184; // Conversion formula: 1 kcal = 4184 J
-                kcalOutput.value = kcal.toFixed(4);
-            } else {
-                kcalOutput.value = '';
-            }
-        }
-
-        function convertKcaltoJ() {
-            const kcalInput = document.getElementById('kcal').value;
-            const joulesOutput = document.getElementById('joules');
-            if (kcalInput !== '') {
-                const kcal = parseFloat(kcalInput);
-                const joules = kcal * 4184; // Conversion formula: 1 kcal = 4184 J
-                joulesOutput.value = joules.toFixed(2);
-            } else {
-                joulesOutput.value = '';
-            }
-        }
-
-        function convertJtoEV() {
-            const joulesInput = document.getElementById('joules').value;
             const evOutput = document.getElementById('molecular-ev');
-            if (joulesInput !== '') {
-                const joules = parseFloat(joulesInput);
-                const ev = joules / 1.60218e-19; // Conversion formula: 1 eV = 1.60218e-19 J
-                evOutput.value = ev.toFixed(4);
-            } else {
-                evOutput.value = '';
-            }
-        }
-
-        function convertJtoHartree() {
-            const joulesInput = document.getElementById('joules').value;
             const hartreeOutput = document.getElementById('hartree');
             if (joulesInput !== '') {
                 const joules = parseFloat(joulesInput);
+                const kcal = joules / 4184; // Conversion formula: 1 kcal = 4184 J
+                const ev = joules / 1.60218e-19; // Conversion formula: 1 eV = 1.60218e-19 J
                 const hartree = joules / 4.35974e-18; // Conversion formula: 1 Hartree = 4.35974e-18 J
+                kcalOutput.value = kcal.toFixed(4);
+                evOutput.value = ev.toFixed(4);
                 hartreeOutput.value = hartree.toFixed(4);
             } else {
+                kcalOutput.value = '';
+                evOutput.value = '';
                 hartreeOutput.value = '';
+            }
+        }
+
+        function convertKcaltoOthers() {
+            const kcalInput = document.getElementById('kcal').value;
+            const joulesOutput = document.getElementById('joules');
+            const evOutput = document.getElementById('molecular-ev');
+            const hartreeOutput = document.getElementById('hartree');
+            if (kcalInput !== '') {
+                const kcal = parseFloat(kcalInput);
+                const joules = kcal * 4184; // Conversion formula: 1 kcal = 4184 J
+                const ev = joules / 1.60218e-19; // Conversion formula: 1 eV = 1.60218e-19 J
+                const hartree = joules / 4.35974e-18; // Conversion formula: 1 Hartree = 4.35974e-18 J
+                joulesOutput.value = joules.toFixed(4);
+                evOutput.value = ev.toFixed(4);
+                hartreeOutput.value = hartree.toFixed(4);
+            } else {
+                joulesOutput.value = '';
+                evOutput.value = '';
+                hartreeOutput.value = '';
+            }
+        }
+
+        function convertEVtoOthers() {
+            const evInput = document.getElementById('molecular-ev').value;
+            const joulesOutput = document.getElementById('joules');
+            const kcalOutput = document.getElementById('kcal');
+            const hartreeOutput = document.getElementById('hartree');
+            if (evInput !== '') {
+                const ev = parseFloat(evInput);
+                const joules = ev * 1.60218e-19; // Conversion formula: 1 eV = 1.60218e-19 J
+                const kcal = joules / 4184; // Conversion formula: 1 kcal = 4184 J
+                const hartree = joules / 4.35974e-18; // Conversion formula: 1 Hartree = 4.35974e-18 J
+                joulesOutput.value = joules.toFixed(4);
+                kcalOutput.value = kcal.toFixed(4);
+                hartreeOutput.value = hartree.toFixed(4);
+            } else {
+                joulesOutput.value = '';
+                kcalOutput.value = '';
+                hartreeOutput.value = '';
+            }
+        }
+
+        function convertHartreetoOthers() {
+            const hartreeInput = document.getElementById('hartree').value;
+            const joulesOutput = document.getElementById('joules');
+            const kcalOutput = document.getElementById('kcal');
+            const evOutput = document.getElementById('molecular-ev');
+            if (hartreeInput !== '') {
+                const hartree = parseFloat(hartreeInput);
+                const joules = hartree * 4.35974e-18; // Conversion formula: 1 Hartree = 4.35974e-18 J
+                const kcal = joules / 4184; // Conversion formula: 1 kcal = 4184 J
+                const ev = joules / 1.60218e-19; // Conversion formula: 1 eV = 1.60218e-19 J
+                joulesOutput.value = joules.toFixed(4);
+                kcalOutput.value = kcal.toFixed(4);
+                evOutput.value = ev.toFixed(4);
+            } else {
+                joulesOutput.value = '';
+                kcalOutput.value = '';
+                evOutput.value = '';
             }
         }
     </script>
