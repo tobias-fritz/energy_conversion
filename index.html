@@ -49,6 +49,17 @@
             font-size: 24px;
             margin-bottom: 16px;
         }
+
+        .full-row {
+            grid-column: span 2;
+            text-align: center;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -62,12 +73,27 @@
             <label for="nm">Wavelength (nm):</label>
             <input type="number" id="nm" class="no-spinner" oninput="convertNMtoEV()" />
         </div>
+        <h1 class="title full-row">Molecular Energy Conversion</h1>
+        <div class="input-row">
+            <label for="joules">Energy (Joules):</label>
+            <input type="number" id="joules" class="no-spinner" oninput="convertJtoKcal()" />
+        </div>
+        <div class="input-row">
+            <label for="kcal">Energy (kcal):</label>
+            <input type="number" id="kcal" class="no-spinner" oninput="convertKcaltoJ()" />
+        </div>
+        <div class="input-row">
+            <label for="molecular-ev">Energy (eV):</label>
+            <input type="number" id="molecular-ev" class="no-spinner" oninput="convertJtoEV()" />
+        </div>
+        <div class="input-row">
+            <label for="hartree">Energy (Hartree):</label>
+            <input type="number" id="hartree" class="no-spinner" oninput="convertJtoHartree()" />
+        </div>
     </div>
 
-
-
-        <script>
-            function convertEVtoNM() {
+    <script>
+        function convertEVtoNM() {
             const evInput = document.getElementById('ev').value;
             const nmOutput = document.getElementById('nm');
             if (evInput !== '') {
@@ -79,7 +105,7 @@
             }
         }
 
-            function convertNMtoEV() {
+        function convertNMtoEV() {
             const nmInput = document.getElementById('nm').value;
             const evOutput = document.getElementById('ev');
             if (nmInput !== '' ) {
@@ -90,7 +116,54 @@
                 evOutput.value = '';
             }
         }
-        </script>
-    </div>
+
+        function convertJtoKcal() {
+            const joulesInput = document.getElementById('joules').value;
+            const kcalOutput = document.getElementById('kcal');
+            if (joulesInput !== '') {
+                const joules = parseFloat(joulesInput);
+                const kcal = joules / 4184; // Conversion formula: 1 kcal = 4184 J
+                kcalOutput.value = kcal.toFixed(4);
+            } else {
+                kcalOutput.value = '';
+            }
+        }
+
+        function convertKcaltoJ() {
+            const kcalInput = document.getElementById('kcal').value;
+            const joulesOutput = document.getElementById('joules');
+            if (kcalInput !== '') {
+                const kcal = parseFloat(kcalInput);
+                const joules = kcal * 4184; // Conversion formula: 1 kcal = 4184 J
+                joulesOutput.value = joules.toFixed(2);
+            } else {
+                joulesOutput.value = '';
+            }
+        }
+
+        function convertJtoEV() {
+            const joulesInput = document.getElementById('joules').value;
+            const evOutput = document.getElementById('molecular-ev');
+            if (joulesInput !== '') {
+                const joules = parseFloat(joulesInput);
+                const ev = joules / 1.60218e-19; // Conversion formula: 1 eV = 1.60218e-19 J
+                evOutput.value = ev.toFixed(4);
+            } else {
+                evOutput.value = '';
+            }
+        }
+
+        function convertJtoHartree() {
+            const joulesInput = document.getElementById('joules').value;
+            const hartreeOutput = document.getElementById('hartree');
+            if (joulesInput !== '') {
+                const joules = parseFloat(joulesInput);
+                const hartree = joules / 4.35974e-18; // Conversion formula: 1 Hartree = 4.35974e-18 J
+                hartreeOutput.value = hartree.toFixed(4);
+            } else {
+                hartreeOutput.value = '';
+            }
+        }
+    </script>
 </body>
 </html>
